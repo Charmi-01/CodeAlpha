@@ -2,47 +2,43 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Basic Calculator</title>
-
-    <!-- Link CSS File -->
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="calculator">
-        <!-- Display Screen -->
-        <div id="display" class="display">0</div>
+    <h1>Image Gallery</h1>
 
-        <!-- Buttons -->
-        <div class="buttons">
-            <button class="clear" data-action="clear">C</button>
-            <button class="operator" data-value="/">÷</button>
-            <button class="operator" data-value="*">×</button>
-            <button class="operator" data-value="-">−</button>
-
-            <button class="number" data-value="7">7</button>
-            <button class="number" data-value="8">8</button>
-            <button class="number" data-value="9">9</button>
-            <button class="operator" data-value="+">+</button>
-
-            <button class="number" data-value="4">4</button>
-            <button class="number" data-value="5">5</button>
-            <button class="number" data-value="6">6</button>
-            <button class="equal" data-action="equals">=</button>
-
-            <button class="number" data-value="1">1</button>
-            <button class="number" data-value="2">2</button>
-            <button class="number" data-value="3">3</button>
-
-            <button class="number" data-value="0">0</button>
-            <button class="number" data-value=".">.</button>
-        </div>
+    <!-- Filter Buttons -->
+    <div class="filters">
+        <button onclick="filterImages('all')">All</button>
+        <button onclick="filterImages('nature')">Nature</button>
+        <button onclick="filterImages('animals')">Animals</button>
+        <button onclick="filterImages('city')">City</button>
     </div>
 
-    <!-- Link JavaScript File -->
+    <!-- Gallery -->
+    <div class="gallery">
+        <img src="https://picsum.photos/id/1015/400/300" class="image nature" onclick="openLightbox(0)">
+        <img src="https://picsum.photos/id/1025/400/300" class="image animals" onclick="openLightbox(1)">
+        <img src="https://picsum.photos/id/1035/400/300" class="image city" onclick="openLightbox(2)">
+        <img src="https://picsum.photos/id/1045/400/300" class="image nature" onclick="openLightbox(3)">
+        <img src="https://picsum.photos/id/1062/400/300" class="image animals" onclick="openLightbox(4)">
+        <img src="https://picsum.photos/id/1011/400/300" class="image city" onclick="openLightbox(5)">
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="close" onclick="closeLightbox()">×</span>
+        <button class="prev" onclick="changeImage(-1)">❮</button>
+        <img id="lightbox-img">
+        <button class="next" onclick="changeImage(1)">❯</button>
+    </div>
+
+    <!-- JS MUST be here -->
     <script src="script.js"></script>
 </body>
 

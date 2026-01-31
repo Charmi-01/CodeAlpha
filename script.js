@@ -1,68 +1,41 @@
-const display = document.getElementById("display");
-const buttons = document.querySelectorAll("button");
+let images = document.querySelectorAll(".gallery img");
+let lightbox = document.getElementById("lightbox");
+let lightboxImg = document.getElementById("lightbox-img");
+let currentIndex = 0;
 
-let currentInput = "";
-
-// Function to update display
-function updateDisplay(value) {
-    display.textContent = value || "0";
+/* Open Lightbox */
+function openLightbox(index) {
+    currentIndex = index;
+    lightbox.style.display = "flex";
+    lightboxImg.src = images[currentIndex].src;
 }
 
-// Button Click Handling
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-        const value = button.dataset.value;
-        const action = button.dataset.action;
+/* Close Lightbox */
+function closeLightbox() {
+    lightbox.style.display = "none";
+}
 
-        // If number/operator pressed
-        if (value) {
-            currentInput += value;
-            updateDisplay(currentInput);
-        }
+/* Next / Previous */
+function changeImage(step) {
+    currentIndex += step;
 
-        // Clear button
-        if (action === "clear") {
-            currentInput = "";
-            updateDisplay("0");
-        }
+    if (currentIndex < 0) {
+        currentIndex = images.length - 1;
+    }
+    if (currentIndex >= images.length) {
+        currentIndex = 0;
+    }
 
-        // Equals button
-        if (action === "equals") {
-            try {
-                currentInput = eval(currentInput).toString();
-                updateDisplay(currentInput);
-            } catch {
-                updateDisplay("Error");
-                currentInput = "";
-            }
+    lightboxImg.src = images[currentIndex].src;
+}
+
+/* Filter images */
+function filterImages(category) {
+    images.forEach(img => {
+        if (category === "all" || img.classList.contains(category)) {
+            img.style.display = "block";
+        } else {
+            img.style.display = "none";
         }
     });
-});
-
-// ✅ Bonus: Keyboard Support
-document.addEventListener("keydown", (event) => {
-    const key = event.key;
-
-    // Numbers and operators
-    if ((key >= "0" && key <= "9") || ["+", "-", "*", "/", "."].includes(key)) {
-        currentInput += key;
-        updateDisplay(currentInput);
-    }
-
-    // Enter = Calculate
-    if (key === "Enter") {
-        try {
-            currentInput = eval(currentInput).toString();
-            updateDisplay(currentInput);
-        } catch {
-            updateDisplay("Error");
-            currentInput = "";
-        }
-    }
-
-    // Escape = Clear
-    if (key === "Escape") {
-        currentInput = "";
-        updateDisplay("0");
-    }
-});
+}
